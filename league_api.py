@@ -84,7 +84,3 @@ def get_current_ranked_winrate( summoner_name, champion ):
                     win_counter += 1
 
     return "%s has a %.2f%% winrate with %s out of %d games." % (summoner_name, (win_counter / len( match_list ) * 100), champion.title(), len( match_list ))
-
-
-if( __name__ == "__main__" ):
-    print( get_current_ranked_winrate( "MagicalMarvin", "Morgana" ) )
