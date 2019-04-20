@@ -7,7 +7,6 @@ import requests
 import json
 import league_api
 import os
-import kenny_config
 
 from discord.ext.commands import Bot
 from discord import Server
@@ -63,10 +62,15 @@ def __get_emojis__( context ):
 
 
 # Commands
-@client.command( description = "Says \"hey\". Pretty straightforward.")
+@client.command( description = "Says \"hey\". Pretty straightforward." )
 @asyncio.coroutine
 def hey( *args ):
     yield from client.say( "hey" )
+
+@client.command( description = "Provides a link to the repository for kenny_bot." )
+@asyncio.coroutine
+def repo( *args ):
+    yield from client.say( "https://github.com/cschwirian/kenny_bot" )
 
 @client.command( pass_context = True, description = "For when a message needs a little more of that je ne sais quoi." )
 @asyncio.coroutine
