@@ -49,6 +49,15 @@ def __stop__( context ):
     else:
         yield from client.say( "Uh uh uh. You're not allowed to do that." )
 
+@client.command( pass_context = True)
+@asyncio.coroutine
+def __restart__( context ):
+    if( context.message.author.id == "131579027659030528" ):
+        client.close()
+        yield from client.run( DISCORD_API_KEY )
+    else:
+        yield from client.say( "Uh uh uh. You're not allowed to do that." )
+
 @client.command( pass_context = True )
 @asyncio.coroutine
 def __get_emojis__( context ):
