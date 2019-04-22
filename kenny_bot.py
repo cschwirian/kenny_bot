@@ -141,21 +141,23 @@ def roll( context, *, message ):
 def what():
     yield from client.say( "Hey, buddy. I'm Kenny. Type \"~hey\" or type \"~help\" to see what I can do." )
 
-@client.command( pass_context = True, description = "Retrieves a player's winrate with a specific champion for the current season. Use the format \"wr summoner champion\". Only works for NA." )
+@client.command( pass_context = True, description = "Retrieves a player's winrate with a specific champion for the current season. Use the format \"wr summoner/champion\". Only works for NA." )
 @asyncio.coroutine
 def wr( context, *, message ):
     try:
         message_split = message.split( "/" )
         summoner_name = message_split[0]
         champion = message_split[1]
-        winrate_message = league_api.get_current_ranked_winrate( summoner_name, champion )
 
-        if( winrate_message == league_api.INVALID_CHAMPION ):
-            yield from client.say( "That champion doesn't exist according to my records." )
-        elif( winrate_message == league_api.INVALID_SUMMONER ):
-            yield from client.say( "That player doesn't exist according to my records." )
+        if( len( message_split ) == 2 ):
+            yield from client.say( league_api.get_winrate( summoner_name, champion, "", "" ) )
+        elif( len( message_split ) == 3 ):
+            queue = message_split[2]
+            yield from client.say( league_api.get_winrate( summoner_name, champion, queue, "") )
         else:
-            yield from client.say( winrate_message )
+            queue = message_split[2]
+            season = message_split[3]
+            yield from client.say( league_api.get_winrate( summoner_name, champion, queue, season) )
     except:
         yield from client.say( "Yeah, you messed that one up, buddy." )
 
