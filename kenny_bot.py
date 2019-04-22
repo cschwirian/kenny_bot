@@ -161,7 +161,7 @@ def wr( context, *, message ):
     except:
         yield from client.say( "Yeah, you messed that one up, buddy." )
 
-@client.command( pass_context = True, description = "Retrieves a player's winrate with a specific champion for the current season. Use the format \"wr summoner/champion\". Only works for NA." )
+@client.command( pass_context = True, description = "Retrieves a player's winrate with a specific champion for the current ranked season. Use the format \"wr summoner/champion\". Only works for NA." )
 @asyncio.coroutine
 def rwr( context, *, message ):
     try:
