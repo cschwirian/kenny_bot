@@ -34,8 +34,8 @@ def get_winrate( summoner_name, champion, queue, season ):
             winrate_message += " in " + queue.lower()
         else:
             queue_id = None
-        except:
-            return "I don't know about that queue."
+    except:
+        return "I don't know about that queue."
 
     try:
         if( season ):
