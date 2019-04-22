@@ -141,7 +141,7 @@ def roll( context, *, message ):
 def what():
     yield from client.say( "Hey, buddy. I'm Kenny. Type \"~hey\" or type \"~help\" to see what I can do." )
 
-@client.command( pass_context = True, description = "Retrieves a player's winrate with a specific champion for the current season. Use the format \"wr summoner/champion\". Only works for NA." )
+@client.command( pass_context = True, description = "Retrieves a player's winrate with a specific champion. Use the form \"~wr summoner/champion/queue/season\". queue and season optional." )
 @asyncio.coroutine
 def wr( context, *, message ):
     try:
@@ -161,8 +161,15 @@ def wr( context, *, message ):
     except:
         yield from client.say( "Yeah, you messed that one up, buddy." )
 
-def get_champ_id_from_name( champion_name ):
-    return champion_cases[champion_name.lower()]
+@client.command( pass_context = True, description = "Retrieves a player's winrate with a specific champion for the current season. Use the format \"wr summoner/champion\". Only works for NA." )
+@asyncio.coroutine
+def rwr( context, *, message ):
+    try:
+        message_split = message.split( "/" )
+        summoner_name = message_split[0]
+        champion = message_split[1]
+
+        yield from client.say( league_api.get_current_ranked_winrate( summoner_name, champion ) )
 
 
 # Main
