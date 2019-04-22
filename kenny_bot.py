@@ -170,7 +170,8 @@ def rwr( context, *, message ):
         champion = message_split[1]
 
         yield from client.say( league_api.get_current_ranked_winrate( summoner_name, champion ) )
-
+    except:
+        yield from client.say( "Yeah, you messed that one up, buddy." )
 
 # Main
 if( __name__ == "__main__" ):
