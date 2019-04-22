@@ -104,7 +104,7 @@ def quote():
 @client.command( pass_context = True )
 @asyncio.coroutine
 def chill_gif( context ):
-    gif = random.choice( os.listdir( "./images/kenny" ) )
+    gif = random.choice( os.listdir( "./gifs/chill" ) )
     yield from client.send_file( context.message.channel, "./gifs/chill/" + gif )
 
 # TODO: Music
