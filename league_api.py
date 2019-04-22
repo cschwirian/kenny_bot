@@ -58,7 +58,7 @@ def get_winrate( summoner_name, champion, queue, season ):
     if( match_list == NO_MATCHES ):
         return "%s has not played %s." % (summoner_name, champion.title())
 
-    winrate, num_matches = get_winrate_from_matches( match_list, summoner_name )
+    winrate, num_matches = get_winrate_from_matches( match_list, account_id )
     return winrate_message % (summoner_name, winrate, champion.title(), num_matches)
 
 
@@ -82,7 +82,7 @@ def get_current_ranked_winrate( summoner_name, champion ):
     if( match_list == NO_MATCHES ):
         return "%s has not played %s this season." % (summoner_name, champion.title())
 
-    winrate, num_matches = get_winrate_from_matches( match_list, summoner_name )
+    winrate, num_matches = get_winrate_from_matches( match_list, account_id )
     return "%s has a %.2f%% winrate with %s out of %d games." % (summoner_name, winrate, champion.title(), num_matches)
 
 
@@ -146,7 +146,7 @@ def get_matches( account_id, queue_id, champion_id, season_id ):
     return match_list
 
 
-def get_winrate_from_matches( match_list, summoner_name ):
+def get_winrate_from_matches( match_list, account_id ):
 
     win_counter = 0
     match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/%d?api_key=%s"
@@ -157,7 +157,7 @@ def get_winrate_from_matches( match_list, summoner_name ):
         match_json = json.loads( match )
 
         for participant in match_json["participantIdentities"]:
-            if( participant["player"]["summonerName"] == summoner_name ):
+            if( participant["player"]["accountId"] == account_id ):
                 participant_id = participant["participantId"]
                 break
 
